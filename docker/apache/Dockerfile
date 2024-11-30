@@ -13,6 +13,20 @@ RUN apt-get update && apt-get install -y \
 #Habilita mod_rewrite para o Apache
 RUN a2enmod rewrite
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# Python has an official image. Alpine and slim are the small versions
+
+RUN apt-get -y install python3-pip
+
+
+
+RUN npm install -g npm@9.2.0
+
+
 #Define o diretório de trabalho
 WORKDIR /var/www/html
 
@@ -23,7 +37,5 @@ COPY ./src /var/www/html
 COPY ./docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-#Expondo a porta 80 para a comunicação com o host na porta 9000
-EXPOSE 80
 
 CMD ["/entrypoint.sh"]
