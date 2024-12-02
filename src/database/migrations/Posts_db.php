@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('titulo'); //titulo do post
             $table->text('resumo'); //resumo do post
             $table->text('conteudo');//conteudo do post
-            $table->string('image')->nullable(); // Caminho da imagem destacada (opcional)
+            $table->string('imagem')->nullable(); // Caminho da imagem destacada (opcional)
             $table->timestamps();//para data de criação e atualização
         });
     }
