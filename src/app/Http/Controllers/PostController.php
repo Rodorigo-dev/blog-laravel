@@ -36,4 +36,29 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post criado com sucesso!');
     }
+
+     // Método para atualizar um post existente
+     public function update(Request $request, $id)
+     {
+         $validated = $request->validate([
+             'titulo' => 'required|string|max:255',
+             'resumo' => 'required|string|max:500',
+             'conteudo' => 'required|string',
+             'imagem' => 'nullable|string|max:255',
+         ]);
+ 
+         $post = Post::findOrFail($id); // Recupera o post pelo ID
+         $post->update($validated); // Atualiza os dados do post
+ 
+         return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso!');
+     }
+
+       // Método para excluir um post
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id); // Recupera o post pelo ID
+        $post->delete(); // Exclui o post do banco de dados
+
+        return redirect()->route('posts.index')->with('success', 'Post excluído com sucesso!');
+    }
 }
