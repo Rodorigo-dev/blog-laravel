@@ -7,6 +7,9 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link href="{{ asset('build/assets/app-BtnuVR96.css') }}" rel="stylesheet">
+        <script src="{{ asset('build/assets/app-D-FaURHc.js') }}" defer></script>
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -16,6 +19,7 @@
 
         <!-- Styles -->
         @livewireStyles
+        
     </head>
     <body class="font-sans antialiased">
         <x-banner />

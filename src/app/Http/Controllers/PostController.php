@@ -14,7 +14,14 @@ class PostController extends Controller
     public function index() //exibe a lista de posts
     {
         $posts = Post::latest()->paginate(10); //recupera todos os posts
-        return view('posts.index', compact('posts')); //retorna a view com os posts
+        if (Auth::check()) {
+            // O usuário está logado
+            return view('posts.index', compact('posts')); //retorna a view com os posts
+        } else {
+            // O usuário não está logado
+            return view('welcome', compact('posts')); //retorna a view com os posts
+        }
+        
         //função para mostar posts
     }
 
@@ -24,17 +31,11 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    // Listagem de posts na administração
-    public function adminIndex()
-    {
-        $posts = Post::latest()->paginate(10);
-        return view('admin.posts.index', compact('posts'));
-    }
 
     public function create()
     {
         //função para  criar posts, deve retornar a view com o formulário de criação
-        return view('admin.posts.create');
+        return view('posts.create');
     }
 
     public function store(Request $request) // metodo para salvar um post novo no banco de dados
@@ -48,7 +49,7 @@ class PostController extends Controller
 
         Post::create($validated);
 
-        return redirect()->route('admin.posts.index')->with('success', 'Post criado com sucesso!');
+        return redirect()->route('posts.index')->with('success', 'Post criado com sucesso!');
     }
 
     // Método para atualizar um post existente
@@ -64,7 +65,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id); // Recupera o post pelo ID
         $post->update($validated); // Atualiza os dados do post
 
-        return redirect()->route('admin.posts.index')->with('success', 'Post atualizado com sucesso!');
+        return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso!');
     }
 
     // Método para excluir um post
@@ -73,6 +74,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id); // Recupera o post pelo ID
         $post->delete(); // Exclui o post do banco de dados
 
-        return redirect()->route('admin.posts.index')->with('success', 'Post excluído com sucesso!');
+        return redirect()->route('posts.index')->with('success', 'Post excluído com sucesso!');
     }
 }
