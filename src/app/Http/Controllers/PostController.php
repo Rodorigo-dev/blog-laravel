@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function index() //exibe a lista de posts
     {
-        $posts = Post::latest()->paginate(10); //recupera todos os posts
+        $posts = Post::latest()->paginate(12); //recupera todos os posts
         if (Auth::check()) {
             // O usuário está logado
             return view('posts.index', compact('posts')); //retorna a view com os posts
