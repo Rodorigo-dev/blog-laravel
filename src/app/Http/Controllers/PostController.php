@@ -63,9 +63,16 @@ class PostController extends Controller
         ]);
 
         $post = Post::findOrFail($id); // Recupera o post pelo ID
+
+        // Processar upload de imagem, se houver
+        if ($request->hasFile('imagem')) {
+            $path = $request->file('imagem')->store('posts', 'public');
+            $validated['imagem'] = $path;
+        }
+
         $post->update($validated); // Atualiza os dados do post
 
-        return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso!');
+        return redirect()->route('posts.show',['id' => $post->id])->with('success', 'Post atualizado com sucesso!');
     }
 
     // Método para excluir um post
