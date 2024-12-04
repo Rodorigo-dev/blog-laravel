@@ -14,4 +14,13 @@
             <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Editar Post</a>
         </div>
     @endauth
+
+    @auth
+        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+            onsubmit="return confirm('Tem certeza que deseja excluir este post?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    @endauth
 @endsection
