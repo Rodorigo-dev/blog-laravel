@@ -1,34 +1,23 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Editar Post</h1>
-
-    <!-- Exibe erros de validação -->
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li style="color: red;">{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-    <!-- Formulário de edição -->
-    <form action="{{ route('posts.update', $post->id) }}" method="POST">
+    <form method="POST" action="{{ route('posts.update', $post->id) }}">
         @csrf
         @method('PUT')
+        
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $post->title }}" required>
+        </div>
 
-        <label for="titulo">Título:</label><br>
-        <input type="text" name="titulo" id="titulo" value="{{ $post->titulo }}"><br><br>
+        <div class="mb-3">
+            <label for="content" class="form-label">Conteúdo</label>
+            <textarea name="content" id="content" class="form-control" rows="5" required>{{ $post->content }}</textarea>
+        </div>
 
-        <label for="resumo">Resumo:</label><br>
-        <textarea name="resumo" id="resumo">{{ $post->resumo }}</textarea><br><br>
-
-        <label for="conteudo">Conteúdo:</label><br>
-        <textarea name="conteudo" id="conteudo">{{ $post->conteudo }}</textarea><br><br>
-
-        <label for="imagem">URL da Imagem (opcional):</label><br>
-        <input type="text" name="imagem" id="imagem" value="{{ $post->imagem }}"><br><br>
-
-        <button type="submit">Atualizar</button>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     </form>
+</div>
 @endsection

@@ -21,7 +21,7 @@ class PostController extends Controller
             // O usuário não está logado
             return view('welcome', compact('posts')); //retorna a view com os posts
         }
-        
+
         //função para mostar posts
     }
 
@@ -75,5 +75,11 @@ class PostController extends Controller
         $post->delete(); // Exclui o post do banco de dados
 
         return redirect()->route('posts.index')->with('success', 'Post excluído com sucesso!');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id); // Busca o post pelo ID ou retorna 404 se não encontrar
+        return view('posts.edit', compact('post')); // Retorna a view com os dados do post
     }
 }
