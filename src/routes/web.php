@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 //rotas publicas
 Route::get('/', [PostController::class, 'index'])->name('posts.index'); //pagina inicial do post
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show'); // Exibir um post específico
+Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard'); // Dashboard público para visitantes e logados
 
 Route::middleware([
     'auth:sanctum',

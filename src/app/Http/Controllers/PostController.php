@@ -47,6 +47,11 @@ class PostController extends Controller
             'imagem' => 'nullable|string|max:255',
         ]);
 
+        if ($request->hasFile('imagem')) {
+            $validated['imagem'] = $request->file('imagem')->store('imagens', 'public');
+        }
+    
+
         Post::create($validated);
 
         return redirect()->route('posts.index')->with('success', 'Post criado com sucesso!');
