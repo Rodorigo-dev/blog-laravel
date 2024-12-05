@@ -23,7 +23,7 @@ class PostSeeder extends Seeder
                 'titulo' => $faker->sentence(6, true),
                 'resumo' => $faker->paragraphs(1, true),
                 'conteudo' => $faker->paragraphs(10, true),
-                'imagem' => "https://placekitten.com/500/500", //meow              
+                'imagem' => "https://placecats.com/300/200", //meow              
                 'created_at' => $faker->dateTimeBetween('2020-01-01','2024-12-31'),
                 'updated_at' => now(),
             ]);
