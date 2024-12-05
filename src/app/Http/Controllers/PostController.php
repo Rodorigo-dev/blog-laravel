@@ -27,8 +27,15 @@ class PostController extends Controller
 
     public function show($id) //mostrar um post  específico
     {
-        $post = Post::findOrFail($id); // Busca o post pelo ID
-        return view('posts.show', compact('post'));
+        $post = Post::find($id); // Busca o post pelo ID
+        if (Auth::check()) {
+            // O usuário está logado
+            return view('posts.show', compact('post'));; //retorna a view com os posts
+        } else {
+            // O usuário não está logado
+            return view('posts.show_guest', compact('post')); //retorna a view com os posts
+        }
+        
     }
 
 
@@ -44,13 +51,11 @@ class PostController extends Controller
             'titulo' => 'required|string|max:255',
             'resumo' => 'required|string|max:500',
             'conteudo' => 'required|string',
-            'imagem' => 'nullable|string|max:255',
         ]);
 
-        if ($request->hasFile('imagem')) {
-            $validated['imagem'] = $request->file('imagem')->store('imagens', 'public');
-        }
-    
+        // Adicione a URL da imagem de forma automática
+        $validated['imagem'] = 'https://placecats.com/640/480';
+
 
         Post::create($validated);
 
@@ -77,7 +82,7 @@ class PostController extends Controller
 
         $post->update($validated); // Atualiza os dados do post
 
-        return redirect()->route('posts.show',['id' => $post->id])->with('success', 'Post atualizado com sucesso!');
+        return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Post atualizado com sucesso!');
     }
 
     // Método para excluir um post
