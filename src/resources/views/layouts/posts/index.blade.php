@@ -6,7 +6,7 @@
     @auth
         <div class="flex justify-end mb-6">
             <a href="{{ route('posts.create') }}" 
-            class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition duration-200">
+            class="btn btn-primary bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition duration-200">
                Criar Novo Post
             </a>
         </div>
