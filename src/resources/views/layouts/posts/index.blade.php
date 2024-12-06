@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 bg-gradient-to-b from-blue-50 via-white to-blue-100">
     <h1 class="text-3xl font-bold text-center mb-6">Lista de Posts</h1>
 
     <!-- Link para criar um novo post -->
@@ -22,23 +22,27 @@
     <!-- Lista de posts -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach ($posts as $post)
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-between h-full">
                 <!-- Imagem do post -->
-                @if ($post->imagem)
-                    <img src="{{ $post->imagem }}" alt="{{ $post->titulo }}" class="w-full h-48 object-cover">
-                @else
-                    <img src="https://via.placeholder.com/350x150" alt="Imagem padrão" class="w-full h-48 object-cover">
-                @endif
+                <div class="h-48 w-full overflow-hidden">
+                    @if ($post->imagem)
+                        <img src="{{ $post->imagem }}" alt="{{ $post->titulo }}" class="w-full h-full object-cover">
+                    @else
+                        <img src="https://via.placeholder.com/350x150" alt="Imagem padrão" class="w-full h-full object-cover">
+                    @endif
+                </div>
 
                 <!-- Conteúdo do post -->
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold text-blue-600">
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">
                         <a href="{{ route('posts.show', $post->id) }}" class="hover:underline">
                             {{ $post->titulo }}
                         </a>
                     </h3>
-                    <p class="text-gray-700 mt-2">{{ Str::limit($post->resumo, 100) }}</p>
-                    <div class="mt-4">
+                    <p class="text-gray-700 flex-grow mb-4">
+                        {{ Str::limit($post->resumo, 100) }}
+                    </p>
+                    <div class="mt-auto">
                         <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline">
                             Ler mais
                         </a>
