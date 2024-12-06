@@ -3,6 +3,9 @@
         <div class="card-body">
             <h1 class="card-title">{{ $post->titulo }}</h1>
 
+            <!-- Exibe a data de criação -->
+            <p class="text-muted mb-3">Publicado em: {{ $post->created_at->format('m/d/Y') }}</p>
+
             <!-- Imagem do Post -->
             @if ($post->imagem)
                 <div class="my-4 text-center">
